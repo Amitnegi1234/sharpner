@@ -1,24 +1,33 @@
 import express from "express";
 const app = express();
 
-// Orders routes
-app.get("/orders", (req, res, next) => {
-  res.send("Here is the list of all orders");
+// Middleware to parse JSON body
+app.use(express.json());
+
+// Products Routes
+app.get("/products", (req, res) => {
+  res.send("Here is the list of all products.");
 });
 
-app.post("/orders", (req, res, next) => {
-  res.send("A new order has been created.");
+app.post("/products", (req, res) => {
+  res.send("A new product has been added.");
 });
 
-// Users routes
-app.get("/users", (req, res, next) => {
-  res.send("Here is the list of all users");
+// Categories Routes
+app.get("/categories", (req, res) => {
+  res.send("Here is the list of all categories.");
 });
 
-app.post("/users", (req, res, next) => {
-  res.send("A new user has been added");
+app.post("/categories", (req, res) => {
+  res.send("A new category has been created.");
 });
 
-app.listen(3000, () => {
-  console.log("Server is up and running on port 3000! Ready to handle requests");
+// Wildcard Route (404 Handler)
+app.use((req, res) => {
+  res.status(404).send("<h1>404 - Page Not Found</h1>");
+});
+
+// Start server on port 4000
+app.listen(4000, () => {
+  console.log("✅ Server running on http://localhost:4000");
 });
