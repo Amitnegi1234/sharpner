@@ -1,21 +1,29 @@
-import express from "express";
+import express from 'express';
+
 const app = express();
 
-
-app.get("/", (req, res) => {
-  res.send("Here is the list of all products.");
+app.use((req, res, next) => {
+  console.log(`${req.method} request made to ${req.url}`);
+  next(); // Don't forget to call next()
 });
 
-app.get("/user/:userId", (req, res) => {
-  const id=req.params.userId;
-  const name=req.query.name;
-  const age= req.query.age;
-  const role =req.query.role;
-  res.send(`id is ${id} , name is ${name}, age is ${age} , role is ${role}`);
+app.get('/products', (req, res) => {
+  res.send('Here is the list of all products.');
+});
+
+app.post('/products', (req, res) => {
+  res.send('A new product has been added.');
+});
+
+app.get('/categories', (req, res) => {
+  res.send('Here is the list of all categories.');
+});
+
+app.post('/categories', (req, res) => {
+  res.send('A new category has been created.');
 });
 
 
-
-app.listen(3000, () => {
-  console.log("✅ Server running on http://localhost:3000");
+app.listen(4000, () => {
+  console.log('Server is running on http://localhost:4000');
 });
